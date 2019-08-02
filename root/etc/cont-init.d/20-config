@@ -37,8 +37,9 @@ cp /config/php/www2.conf /etc/php7/php-fpm.d/www2.conf
   sleep infinity
   
 # set HA_URL
+sed -i "s@ws://localhost:8123@http://$HA_URL@g" /tileboard/config.js
 sed -i "s@ws://localhost:8123/api/websocket@ws://$HA_URL/api/websocket@g" /tileboard/config.js
-sed "s@ws://localhost:8123/api/websocket@ws://$HA_URL/api/websocket@g" /tileboard/config.j
+
 
 # permissions
 chown -R abc:abc \
