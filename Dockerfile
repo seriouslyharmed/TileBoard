@@ -51,7 +51,7 @@ RUN \
  && echo "**** Direct TileBoard to HomeAssistant ****" \
  && sed -i "s@http://localhost:8123@http://$HA_URL@g" /tileboard/config.js \
  && sed -i "s@ws://localhost:8123/api/websocket@ws://$HA_URL/api/websocket@g" /tileboard/config.js \
- && sed "s@ws://localhost:8123/api/websocket@ws://$HA_URL/api/websocket@g" /tileboard/config.js
+ && sed "s@ws://localhost:8123/api/websocket@ws://$HA_URL/api/websocket@g" /tileboard/config.js \
  && echo "**** Image Clean-Up ****" \
  && rm -rf "/setup"
 
