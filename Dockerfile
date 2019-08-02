@@ -26,6 +26,19 @@ RUN \
 	php7-xml \
 	php7-xmlwriter \
 	php7-zlib && \
+ echo "**** Configure nginx ****" && \
+ echo 'fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;' >> \
+	/etc/nginx/fastcgi_params && \
+ rm -f /etc/nginx/conf.d/default.conf && \
+ echo "**** Fix Logrotate ****" && \
+ sed -i "s#/var/log/messages {}.*# #g" /etc/logrotate.conf && \
+ sed -i 's#/usr/sbin/logrotate /etc/logrotate.conf#/usr/sbin/logrotate /etc/logrotate.conf -s /config/log/logrotate.status#g' \
+	/etc/periodic/daily/logrotate
+
+# add local files
+COPY root/ /
+
+RUN \
  echo "**** Download TileBoard ****" \
  && mkdir /setup \
  && wget --no-check-certificate -O /setup/master.zip "https://github.com/resoai/TileBoard/archive/master.zip" \
@@ -39,18 +52,7 @@ RUN \
  && sed -i "s@http://localhost:8123@http://$HA_URL@g" /config/www/tileboard/config.js \
  && sed -i "s@ws://localhost:8123/api/websocket@http://$HA_URL/api/websocket@g" /config/www/tileboard/config.js \
  && echo "**** Image Clean-Up ****" \
- && rm -rf "/setup" && \
- echo "**** Configure nginx ****" && \
- echo 'fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;' >> \
-	/etc/nginx/fastcgi_params && \
- rm -f /etc/nginx/conf.d/default.conf && \
- echo "**** Fix Logrotate ****" && \
- sed -i "s#/var/log/messages {}.*# #g" /etc/logrotate.conf && \
- sed -i 's#/usr/sbin/logrotate /etc/logrotate.conf#/usr/sbin/logrotate /etc/logrotate.conf -s /config/log/logrotate.status#g' \
-	/etc/periodic/daily/logrotate
-
-# add local files
-COPY root/ /
+ && rm -rf "/setup"
 
 # ports and volumes
 EXPOSE 80 443
