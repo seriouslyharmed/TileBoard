@@ -32,7 +32,7 @@ RUN \
  && echo "**** Unzip TileBoard ****" \
  && unzip /setup/master.zip -d /setup \
  && echo "**** Install TileBoard ****" \
- && mkdir /config/www/tileboard \
+ && mkdir -p /config/www/tileboard \
  && mv /setup/TileBoard-master/favicon.png /setup/TileBoard-master/images/ /setup/TileBoard-master/index.html /setup/TileBoard-master/scripts/ /setup/TileBoard-master/styles/ -t /config/www/tileboard/ \
  && mv /setup/TileBoard-master/config.example.js /config/www/tileboard/config.js \
  && echo "**** Direct TileBoard to HomeAssistant ****" \
