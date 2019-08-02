@@ -45,12 +45,12 @@ RUN \
  && echo "**** Unzip TileBoard ****" \
  && unzip /setup/master.zip -d /setup \
  && echo "**** Install TileBoard ****" \
- && mkdir -p /config/www/tileboard \
- && mv /setup/TileBoard-master/favicon.png /setup/TileBoard-master/images/ /setup/TileBoard-master/index.html /setup/TileBoard-master/scripts/ /setup/TileBoard-master/styles/ -t /config/www/tileboard/ \
- && mv /setup/TileBoard-master/config.example.js /config/www/tileboard/config.js \
+ && mkdir -p /tileboard \
+ && mv /setup/TileBoard-master/favicon.png /setup/TileBoard-master/images/ /setup/TileBoard-master/index.html /setup/TileBoard-master/scripts/ /setup/TileBoard-master/styles/ -t /tileboard/ \
+ && mv /setup/TileBoard-master/config.example.js /tileboard/config.js \
  && echo "**** Direct TileBoard to HomeAssistant ****" \
- && sed -i "s@http://localhost:8123@http://$HA_URL@g" /config/www/tileboard/config.js \
- && sed -i "s@ws://localhost:8123/api/websocket@http://$HA_URL/api/websocket@g" /config/www/tileboard/config.js \
+ && sed -i "s@http://localhost:8123@http://$HA_URL@g" /tileboard/config.js \
+ && sed -i "s@ws://localhost:8123/api/websocket@http://$HA_URL/api/websocket@g" /tileboard/config.js \
  && echo "**** Image Clean-Up ****" \
  && rm -rf "/setup"
 
