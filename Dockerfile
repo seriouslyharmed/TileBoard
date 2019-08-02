@@ -1,5 +1,9 @@
 FROM lsiobase/alpine:3.10
 
+LABEL maintainer="SeriouslyHarmed"
+
+ENV HA_URL localhost:8123
+
 # install packages
 RUN \
  echo "**** install build packages ****" && \
